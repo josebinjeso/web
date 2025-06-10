@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server - Fahri Muhammad</title>
+    <link rel="stylesheet" href="web/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .social-media-icons a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: inherit;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        .social-media-icons a i {
+            font-size: 1.5em;
+        }
+
+        .social-media-icons a span {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .server-list-section {
+            width: 100%;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f0f7f9;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s;
+        }
+
+        .server-list-section.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .server-list-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2em;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .server-item {
+            background-color: #ffffff;
+            border: 1px solid #d9edf7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .server-item h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5em;
+            color: #34495e;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .server-config-text {
+            background-color: #ecf0f1;
+            border: 1px solid #cce7ed;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace; /* Font monospasi untuk kode */
+            font-size: 0.9em;
+            word-break: break-all; 
+            white-space: pre-wrap; 
+            color: #333;
+            margin-bottom: 10px;
+            display: block; 
+            overflow-x: auto; 
+        }
+
+        .copy-button {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+        }
+
+        .copy-button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .copy-button:active {
+            background-color: #3e8e41;
+            transform: translateY(0);
+        }
+
+        .copy-success-message {
+            display: none; 
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            font-size: 0.9em;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+        }
+
+        .copy-success-message.show {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Responsif */
+        @media (max-width: 768px) {
+            .server-list-section {
+                padding: 15px;
+            }
+            .server-list-section h2 {
+                font-size: 1.8em;
+            }
+            .server-item {
+                padding: 12px;
+            }
+            .server-item h3 {
+                font-size: 1.3em;
+            }
+            .server-config-text {
+                font-size: 0.85em;
+            }
+            .copy-button {
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .server-list-section {
+                padding: 10px;
+            }
+            .server-list-section h2 {
+                font-size: 1.6em;
+            }
+            .server-item {
+                padding: 10px;
+            }
+            .server-item h3 {
+                font-size: 1.2em;
+            }
+            .server-config-text {
+                font-size: 0.8em;
+            }
+            .copy-button {
+                padding: 7px 10px;
+                font-size: 0.85em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlay"></div>
+
+    <nav class="off-canvas-menu" id="offCanvasMenu">
+        <div class="menu-header">
+            <span class="close-btn" id="closeMenu">&times;</span>
+            <h2>Menu</h2>
+        </div>
+        <ul class="off-canvas-list">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="server.html">Server</a></li> </ul>
+    </nav>
+
+    <div class="container">
+        <div class="hamburger-icon" id="hamburgerIcon">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <header>
+            <h1>Daftar Server</h1>
+        </header>
+
+        <section class="server-list-section">
+            <h2>Konfigurasi Server</h2>
+
+            <div class="server-item">
+                <h3>VMess Server</h3>
+                <pre class="server-config-text" id="vmessConfig">vmess://eyJhZggiOiJydWFuZ2d1cnUuY29tIiwiYWlkIjoiMCIsImFscG4iOiIiLCJmcCI6IiIsImhvc3QiOiJzaXJlbi5tYXJ0YWJ1YXQud29ya2Vycy5kZXYiLCJpZCI6ImYwNjdmMzg0LTJjYjctNGZjYi05YWJhLTJkMmMyNDA2NTdlMyIsIm5ldCI6IndzIiwicGF0aCI6Ii9TRyIsInBvcnQiOiI4MCIsInBzIjoidm1lc3MiLCJzY3kiOiJ6ZXJvIiwic25pIjoiIiwidGxzIjoiIiwidHlwZSI6IiIsInYiOiIyIn0=</pre>
+                <button class="copy-button" data-target="vmessConfig">Salin Teks</button>
+                <div class="copy-success-message" id="vmessSuccess">Berhasil disalin!</div>
+            </div>
+
+            <div class="server-item">
+                <h3>VLESS Server</h3>
+                <pre class="server-config-text" id="vlessConfig">vless://f067f384-2cb7-4fcb-9aba-2d2c240657e3@ruangguru.com:443/?type=ws&encryption=none&host=siren.martabuat.workers.dev&path=%2FSG&security=tls&sni=siren.martabuat.workers.dev#siren%20vless</pre>
+                <button class="copy-button" data-target="vlessConfig">Salin Teks</button>
+                <div class="copy-success-message" id="vlessSuccess">Berhasil disalin!</div>
+            </div>
+
+            <div class="server-item">
+                <h3>Trojan Server</h3>
+                <pre class="server-config-text" id="trojanConfig">trojan://f067f384-2cb7-4fcb-9aba-2d2c240657e3@ruangguru.com:443/?type=ws&host=siren.martabuat.workers.dev&path=%2FSG&security=tls&sni=siren.martabuat.workers.dev#trojan</pre>
+                <button class="copy-button" data-target="trojanConfig">Salin Teks</button>
+                <div class="copy-success-message" id="trojanSuccess">Berhasil disalin!</div>
+            </div>
+
+            <div class="server-item">
+                <h3>SS Server</h3>
+                <pre class="server-config-text" id="ssConfig">ss://bm9uZTpmMDY3ZjM4NC0yY2I3LTRmY2ItOWFiYS0yZDJjMjQwNjU3ZTM@siren.martabuat.workers.dev:443?plugin=v2ray-plugin%3Btls%3Bmux%3D0%3Bmode%3Dwebsocket%3Bpath%3D%2FKR%3Bhost%3Dsiren.martabuat.workers.dev#ss</pre>
+                <button class="copy-button" data-target="ssConfig">Salin Teks</button>
+                <div class="copy-success-message" id="ssSuccess">Berhasil disalin!</div>
+            </div>
+
+        </section>
+    </div>
+
+    <script>
+        const hamburgerIcon = document.getElementById('hamburgerIcon');
+        const offCanvasMenu = document.getElementById('offCanvasMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const overlay = document.getElementById('overlay');
+
+        // Toggle Off-Canvas Menu
+        hamburgerIcon.addEventListener('click', () => {
+            offCanvasMenu.classList.add('open');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        });
+
+        closeMenu.addEventListener('click', () => {
+            offCanvasMenu.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = ''; 
+        });
+
+        overlay.addEventListener('click', () => {
+            offCanvasMenu.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        offCanvasMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                offCanvasMenu.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.container').classList.add('animate-in');
+            document.querySelector('header').classList.add('animate-in');
+            document.querySelector('.server-list-section').classList.add('animate-in');
+        });
+
+        document.querySelectorAll('.copy-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.dataset.target;
+                const textToCopy = document.getElementById(targetId).textContent;
+
+                navigator.clipboard.writeText(textToCopy)
+                    .then(() => {
+                        const successMessageId = targetId.replace('Config', 'Success');
+                        const successMessage = document.getElementById(successMessageId);
+                        successMessage.classList.add('show');
+                        setTimeout(() => {
+                            successMessage.classList.remove('show');
+                        }, 2000); 
+                    })
+                    .catch(err => {
+                        console.error('Gagal menyalin teks: ', err);
+                        alert('Gagal menyalin teks. Silakan salin manual.');
+                    });
+            });
+        });
+    </script>
+</body>
+</html>

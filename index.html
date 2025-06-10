@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fahri Muhammad - Profile</title>
+    <link rel="stylesheet" href="web/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        .social-media-icons a {
+            display: flex; 
+            align-items: center; 
+            gap: 8px;
+            text-decoration: none; 
+            color: inherit; 
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        .social-media-icons a i {
+            font-size: 1.5em; 
+        }
+
+        .social-media-icons a span {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.9em; 
+            font-weight: 600; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlay"></div>
+
+    <nav class="off-canvas-menu" id="offCanvasMenu">
+        <div class="menu-header">
+            <span class="close-btn" id="closeMenu">&times;</span>
+            <h2>Menu</h2>
+        </div>
+        <ul class="off-canvas-list">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="server.html">Server</a></li>
+        </ul>
+    </nav>
+    <div id="home" class="container">
+        <div class="hamburger-icon" id="hamburgerIcon">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <header>
+            <h1>Fahri Muhammad</h1>
+        </header>
+
+        <div style="display: none;" class="speech-bubble-top">
+            <p>Fahri: "Bangunlah dari zona nyaman!"</p>
+        </div>
+
+        <section class="profile-section">
+            <div class="profile-image-container">
+                <img src="web/oy.jpg" alt="Fahri" class="profile-image">
+            </div>
+            <div class="info-box-middle">
+                <h2>HAI, SAYA FAHRI MUHAMAD!</h2>
+                <p>Siswa SMKN 1 NGAWEN, jurusan Teknik Alat Berat (TAB), angkatan 2023-2026. Lahir tahun 2007. Penuh energi dan ide!</p>
+            </div>
+        </section>
+
+        <section class="about-me-section">
+            <h3>TENTANG SAYA</h3>
+            <p>Hai! Saya Fahri Muhammad, siswa Teknik Alat Berat di SMKN 1 Ngawen. Selain belajar soal mesin-mesin berat, saya juga aktif di Dewan Ambalan. Di sana, saya belajar banyak tentang jadi pemimpin dan kerja tim.</p>
+        </section>
+        <div id="contact" class="social-media-icons">
+            <a href="https://www.instagram.com/muizanaka/" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+            <a href="https://www.tiktok.com/@ellmarta/" target="_blank" aria-label="TikTok">
+                <i class="fab fa-tiktok"></i>
+                <span>TikTok</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const hamburgerIcon = document.getElementById('hamburgerIcon');
+        const offCanvasMenu = document.getElementById('offCanvasMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const overlay = document.getElementById('overlay');
+        // const hasSubmenus = document.querySelectorAll('.off-canvas-list .has-submenu > a'); // Komentar ini karena tidak ada sub-menu di HTML saat ini
+
+        // Toggle Off-Canvas Menu
+        hamburgerIcon.addEventListener('click', () => {
+            offCanvasMenu.classList.add('open');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeMenu.addEventListener('click', () => {
+            offCanvasMenu.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = ''; 
+        });
+
+        overlay.addEventListener('click', () => {
+            offCanvasMenu.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Toggle Submenus 
+        // hasSubmenus.forEach(item => {
+        //     item.addEventListener('click', function(e) {
+        //         if (this.parentElement.classList.contains('has-submenu')) {
+        //             e.preventDefault();
+        //             const submenu = this.nextElementSibling;
+        //             submenu.classList.toggle('open');
+        //             this.querySelector('.submenu-arrow').classList.toggle('rotate');
+        //         }
+        //     });
+        // });
+
+        offCanvasMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                offCanvasMenu.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+                document.querySelectorAll('.off-canvas-submenu.open').forEach(sub => {
+                    sub.classList.remove('open');
+                    const arrow = sub.previousElementSibling.querySelector('.submenu-arrow');
+                    if (arrow) {
+                        arrow.classList.remove('rotate');
+                    }
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.container').classList.add('animate-in');
+            document.querySelector('header').classList.add('animate-in'); 
+            document.querySelector('.speech-bubble-top').classList.add('animate-in');
+            document.querySelector('.profile-section').classList.add('animate-in');
+            document.querySelector('.about-me-section').classList.add('animate-in');
+            document.querySelector('.social-media-icons').classList.add('animate-in');
+        });
+    </script>
+</body>
+</html>
