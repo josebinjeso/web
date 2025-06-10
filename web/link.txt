@@ -1,0 +1,4 @@
+vmess://eyJhZGQiOiJzaXJlbi5tYXJ0YWJ1YXQud29ya2Vycy5kZXYiLCJhaWQiOiIwIiwiYWxwbiI6IiIsImhvc3QiOiJzaXJlbi5tYXJ0YWJ1YXQud29ya2Vycy5kZXYiLCJpZCI6ImYwNjdmMzg0LTJjYjctNGZjYi05YWJhLTJkMmMyNDA2NTdlMyIsIm5ldCI6IndzIiwicGF0aCI6Ii9LUiIsInBvcnQiOiI4MCIsInBzIjoic2lyZW4gdm1lc3MiLCJzY3kiOiJ6ZXJvIiwic25pIjoiIiwidGxzIjoiIiwidHlwZSI6Im5vbmUiLCJ2IjoiMiJ9
+vless://f067f384-2cb7-4fcb-9aba-2d2c240657e3@siren.martabuat.workers.dev:443?encryption=none&type=ws&host=siren.martabuat.workers.dev&path=%2FKR&security=tls&sni=siren.martabuat.workers.dev#siren vless
+trojan://f067f384-2cb7-4fcb-9aba-2d2c240657e3@siren.martabuat.workers.dev:443?encryption=none&type=ws&host=siren.martabuat.workers.dev&path=%2FKR&security=tls&sni=siren.martabuat.workers.dev#siren trojan
+ss://bm9uZTpmMDY3ZjM4NC0yY2I3LTRmY2ItOWFiYS0yZDJjMjQwNjU3ZTM=@siren.martabuat.workers.dev:443?plugin=v2ray-plugin%3Btls%3Bmux%3D0%3Bmode%3Dwebsocket%3Bpath%3D%2FKR%3Bhost%3Dsiren.martabuat.workers.dev#siren ss

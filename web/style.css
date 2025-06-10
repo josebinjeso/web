@@ -1,0 +1,512 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    box-sizing: border-box;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* Dark Mode styles */
+body.dark-mode {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+.container {
+    width: 100%;
+    max-width: 650px;
+    background-color: #ffffff;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    /* Initial state for fade-in & slide-up */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* State when animation is triggered */
+.container.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Hamburger Icon Styles --- */
+.hamburger-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 1.8em;
+    color: #2c3e50;
+    cursor: pointer;
+    z-index: 2;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.hamburger-icon:hover {
+    color: #4CAF50;
+}
+
+/* --- Off-Canvas Menu Styles --- */
+.off-canvas-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100%;
+    background-color: #2c3e50;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transform: translateX(-100%); /* Sembunyikan di luar layar */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth slide animation */
+    display: flex;
+    flex-direction: column;
+}
+
+.off-canvas-menu.open {
+    transform: translateX(0); /* Tampilkan menu */
+}
+
+.menu-header {
+    padding: 20px;
+    background-color: #34495e;
+    color: #ecf0f1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #4a6572;
+}
+
+.menu-header h2 {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5em;
+}
+
+.close-btn {
+    font-size: 2.5em;
+    cursor: pointer;
+    color: #ecf0f1;
+    transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: #ff6b6b;
+}
+
+.off-canvas-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.off-canvas-list li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.off-canvas-list li:last-child {
+    border-bottom: none;
+}
+
+.off-canvas-list li a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #ecf0f1;
+    font-size: 1.1em;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.off-canvas-list li a:hover {
+    background-color: #4a6572;
+    color: #a4dded;
+}
+
+/* Sub-menu Off-Canvas */
+.off-canvas-submenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #3f586a;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.off-canvas-submenu.open {
+    max-height: 200px;
+}
+
+.off-canvas-submenu li a {
+    padding: 10px 25px 10px 40px;
+    font-size: 1em;
+    color: #d0d0d0;
+}
+
+.off-canvas-submenu li a:hover {
+    background-color: #5b768e;
+    color: #ecf0f1;
+}
+
+.submenu-arrow {
+    transition: transform 0.3s ease;
+}
+
+.submenu-arrow.rotate {
+    transform: rotate(90deg);
+}
+
+/* --- Overlay Styles --- */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* General layout adjustments for elements within the container */
+header {
+    width: 100%;
+    text-align: center;
+    margin-top: 50px; /* Cukup ruang untuk hamburger icon */
+    margin-bottom: 30px;
+    /* Initial state for fade-in & slide-up */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s; /* Delayed animation */
+}
+
+/* State when animation is triggered */
+header.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.2em;
+    color: #2c3e50; /* Pastikan warna teks terlihat */
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.1);
+    text-stroke: 1px rgba(0, 0, 0, 0.1);
+    letter-spacing: 1px;
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    display: inline-block; /* Agar stroke dan styling box model berfungsi */
+    box-shadow: none;
+}
+
+.speech-bubble-top {
+    position: relative;
+    background-color: #e0f2f7;
+    border: 1px solid #cce7ed;
+    border-radius: 10px;
+    padding: 15px 25px;
+    margin-bottom: 30px;
+    text-align: center;
+    width: 75%;
+    box-sizing: border-box;
+    font-size: 1.1em;
+    font-style: italic;
+    color: #555;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    /* Initial state for fade-in & slide-up */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out 0.4s, transform 0.8s ease-out 0.4s; /* Delayed animation */
+}
+
+.speech-bubble-top.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.speech-bubble-top::before,
+.speech-bubble-top::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #cce7ed;
+    bottom: -11px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.speech-bubble-top::after {
+    border-top-color: #e0f2f7;
+    bottom: -9px;
+}
+
+.profile-section {
+    width: 100%;
+    background-color: #f0f7f9;
+    border: 1px solid #d9edf7;
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    /* Initial state for fade-in & slide-up */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out 0.6s, transform 0.8s ease-out 0.6s; /* Delayed animation */
+}
+
+.profile-section.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.profile-image-container {
+    border: 3px solid #2c3e50;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 160px;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(0.9); /* Initial state for pop-in */
+    transition: transform 0.5s ease-out;
+}
+
+.profile-section.animate-in .profile-image-container {
+    transform: scale(1);
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.info-box-middle {
+    background-color: #e0f7f7;
+    border: 1px solid #cceeed;
+    border-radius: 12px;
+    padding: 20px 25px;
+    text-align: left;
+    margin-top: 0;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.info-box-middle h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8em;
+    color: #34495e;
+    -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.05);
+    text-stroke: 0.5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 10px;
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    display: block;
+}
+
+.info-box-middle p {
+    font-size: 1em;
+    line-height: 1.7;
+    color: #555;
+}
+
+.about-me-section {
+    width: 100%;
+    background-color: #f7f3e0;
+    border: 1px solid #ede1cc;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: left;
+    margin-bottom: 30px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    /* Initial state for fade-in & slide-up */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out 0.8s, transform 0.8s ease-out 0.8s; /* Delayed animation */
+}
+
+.about-me-section.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.about-me-section h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8em;
+    color: #2c3e50;
+    -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.05);
+    text-stroke: 0.5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.about-me-section p {
+    font-size: 1em;
+    line-height: 1.7;
+    color: #555;
+}
+
+/* Social Media Icons */
+.social-media-icons {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    width: 100%;
+    /* Initial state for fade-in & slide-up */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out 1s, transform 0.8s ease-out 1s; /* Delayed animation */
+}
+
+.social-media-icons.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.social-media-icons a {
+    color: #7f8c8d;
+    font-size: 3.2em;
+    transition: color 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
+}
+
+.social-media-icons a:hover {
+    transform: scale(1.15);
+}
+
+/* Specific colors for icons */
+.social-media-icons .fa-instagram:hover {
+    color: #E1306C;
+}
+
+.social-media-icons .fa-tiktok:hover {
+    color: #000000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    header h1 {
+        font-size: 2.5em;
+    }
+    .speech-bubble-top {
+        width: 90%;
+    }
+    .profile-image-container {
+        width: 140px;
+        height: 140px;
+    }
+    .info-box-middle h2,
+    .about-me-section h3 {
+        font-size: 1.6em;
+    }
+    .social-media-icons a {
+        font-size: 2.8em;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+    header h1 {
+        font-size: 2em;
+    }
+    .speech-bubble-top {
+        padding: 10px 15px;
+        font-size: 1em;
+    }
+    .theme-toggle-button {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+    .profile-image-container {
+        width: 100px;
+        height: 100px;
+    }
+    .info-box-middle h2,
+    .about-me-section h3 {
+        font-size: 1.4em;
+    }
+    .info-box-middle p,
+    .about-me-section p {
+        font-size: 0.9em;
+    }
+    .social-media-icons a {
+        font-size: 2.5em;
+        gap: 15px;
+    }
+}
+
+/* Dark Mode styles for navigation (if applicable) */
+body.dark-mode .main-nav {
+    background-color: #3f586a;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .tab-menu li a {
+    color: #c0c0c0;
+    border-bottom-color: transparent;
+}
+
+body.dark-mode .tab-menu li a:hover {
+    background-color: #4a6572;
+    color: #ecf0f1;
+    border-bottom-color: #a4dded;
+}
+
+body.dark-mode .submenu {
+    background-color: #4a6572;
+    border-color: #2c3e50;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .submenu li a {
+    color: #d0d0d0;
+}
+
+body.dark-mode .submenu li a:hover {
+    background-color: #5b768e;
+    color: #ecf0f1;
+}
